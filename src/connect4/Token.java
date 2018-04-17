@@ -6,7 +6,7 @@ public class Token<T> {
 	private TokenColor color;
 
 	public Token(T color) {
-		TokenColor tokenColor = (TokenColor) color;
+		this.color = (TokenColor) color;
 	}
 
 	public String getSymbol() {
@@ -26,12 +26,13 @@ public class Token<T> {
 	}
 
 	public void setColor(TokenColor newColor) {
-		if (color == null) {
+		System.out.println(color);
+		if (newColor == null) {
 			throw new IllegalArgumentException();
 		}
 
 		this.color = newColor;
-		System.out.println("Changed color!");
+		System.out.println("Changed color! To " + this.color);
 
 	}
 

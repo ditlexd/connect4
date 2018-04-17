@@ -10,16 +10,16 @@ public class Board<T> {
 	private int height;
 
 	// Creates a new game board with the given dimensions.
-	public Board(int width, int height, T element) {
-		if (width < 1 || height < 1) {
+	public Board(int width, int height) {
+		if (width <= 0 || height <= 0) {
 			throw new IllegalArgumentException();
 		}
 
 		this.height = height;
 		this.width = width;
-		cells = new ArrayList<T>(height * width);
+		cells = new ArrayList<T>();
 		for (int i = 0; i < height * width; ++i) {
-			Token<T> token = new Token<T>(element);
+			T token = (T) new Token(TokenColor.BLANK);
 			cells.add(token);
 		}
 	}
@@ -41,15 +41,36 @@ public class Board<T> {
 		((Token) cells.get(x + (y * width))).setColor(((TokenColor) tokenColor));;
 	}
 
-	
-	public void printBoard() {
+	//Prints the board. Currently prints it upside down, aka 0,0 is top left corner. 
+	public <T> void printBoard() {
+		int index = 0;
 		for (int j = 0; j < height; j++) {
 			for (int i = 0; i < width; i++) {
-				System.out.print("| "+((Token) cells.get(i)).getSymbol()+" ");
+				System.out.print("| "+((Token) cells.get(index)).getSymbol()+" ");
+				index++;
 			}
 			System.out.print("|\n");
 		}
-
+	}
+	
+	private boolean isBlank(int column, int row) {
+		if (((Token) cells.get(column + (row * width))).getSymbol() != " ") {
+			return false;
+		}
+		return true;
+	}
+	
+	public void dropToken(int column, T color) {
+		if (column > height) {
+			throw new IllegalArgumentException("Not that many columns on the board!");
+		}
+		
+		for (int i = height-1; i >= 0; i--) {
+			if (isBlank(column, i)) {
+				insertToken(column, i, color);
+				break;
+			}
+		}
 	}
 
 }
