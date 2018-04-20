@@ -4,6 +4,8 @@ import java.awt.Color;
 
 public class Token<T> {
 	private TokenColor color;
+	private int columnPos;
+	private int rowPos;
 
 	public Token(T color) {
 		this.color = (TokenColor) color;
@@ -26,14 +28,24 @@ public class Token<T> {
 	}
 
 	public void setColor(TokenColor newColor) {
-		System.out.println(color);
 		if (newColor == null) {
 			throw new IllegalArgumentException();
 		}
 
 		this.color = newColor;
-		System.out.println("Changed color! To " + this.color);
-
+	}
+	
+	public void setPos(int column, int row) {
+		this.columnPos = column;
+		this.rowPos = row;
+	}
+	
+	public int getColumnPos() {
+		return columnPos;
+	}
+	
+	public int getRowPos() {
+		return rowPos;
 	}
 
 }

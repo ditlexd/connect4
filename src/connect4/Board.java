@@ -18,10 +18,6 @@ public class Board<T> {
 		this.height = height;
 		this.width = width;
 		cells = new ArrayList<T>();
-		for (int i = 0; i < height * width; ++i) {
-			T token = (T) new Token(TokenColor.BLANK);
-			cells.add(token);
-		}
 	}
 
 	public int getWidth() {
@@ -31,46 +27,52 @@ public class Board<T> {
 	public int getHeight() {
 		return height;
 	}
-
-	public void insertToken(int x, int y, T tokenColor) {	
-		if (x < 0 || x > width)
-			throw new IndexOutOfBoundsException();
-		if (y < 0 || y > height)
-			throw new IndexOutOfBoundsException();
-
-		((Token) cells.get(x + (y * width))).setColor(((TokenColor) tokenColor));;
+	
+	public List<T> getCells() {
+		return cells;
 	}
 
-	//Prints the board. Currently prints it upside down, aka 0,0 is top left corner. 
+
+	public T getElement(int column, int row) {
+		return cells.get(column + (row * width));
+	}
+
+	// Prints the board. Currently prints it upside down, aka 0,0 is top left
+	// corner.
 	public <T> void printBoard() {
 		int index = 0;
 		for (int j = 0; j < height; j++) {
 			for (int i = 0; i < width; i++) {
-				System.out.print("| "+((Token) cells.get(index)).getSymbol()+" ");
+				System.out.print("| " + ((Token) cells.get(index)).getSymbol() + " ");
 				index++;
 			}
 			System.out.print("|\n");
 		}
 	}
-	
-	private boolean isBlank(int column, int row) {
-		if (((Token) cells.get(column + (row * width))).getSymbol() != " ") {
-			return false;
+
+
+	public List<T> getHorizontalNeighbours(int tokenColumn, int tokenRow) {
+		ArrayList<T> neighbours = new ArrayList<T>();
+		int column = tokenColumn;
+		int row = tokenRow;
+
+		for (int i = 0; i < width; i++) {
+			neighbours.add(getElement(i, row));
 		}
-		return true;
+
+		return neighbours;
 	}
-	
-	public void dropToken(int column, T color) {
-		if (column > height) {
-			throw new IllegalArgumentException("Not that many columns on the board!");
+
+	public List<T> getVerticalNeighbours(int tokenColumn, int tokenRow) {
+		ArrayList<T> neighbours = new ArrayList<T>();
+		int column = tokenColumn;
+		int row = tokenRow;
+
+		for (int i = 0; i < height; i++) {
+			neighbours.add(getElement(column, i));
 		}
-		
-		for (int i = height-1; i >= 0; i--) {
-			if (isBlank(column, i)) {
-				insertToken(column, i, color);
-				break;
-			}
-		}
+
+		return neighbours;
 	}
 
 }
