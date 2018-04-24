@@ -5,6 +5,7 @@ import java.util.List;
 
 import Players.IPlayer;
 import Players.Player;
+import inputOutput.IO;
 import rules.Rules;
 
 public class Game {
@@ -33,7 +34,7 @@ public class Game {
 			}
 			
 		}
-		board.printBoard();
+		IO.printBoard(board);
 	}
 	
 	private <T> void hasWon(Token lastPlayedToken) {
