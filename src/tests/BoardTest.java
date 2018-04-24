@@ -10,6 +10,7 @@ import org.junit.Test;
 import connect4.Board;
 import connect4.Token;
 import connect4.TokenColor;
+import inputOutput.IO;
 import rules.Rules;
 
 public class BoardTest {
@@ -24,66 +25,92 @@ public class BoardTest {
 	}
 
 	@Test
-	public void printBoardTest() {
+	public void horizontalWin() {
 		Board board = new Board(5, 5);
-		board.insertToken(3, 3, TokenColor.RED);
-		board.insertToken(0, 4, TokenColor.RED);
-		board.insertToken(4, 4, TokenColor.RED);
-		// board.printBoard();
-		System.out.println("Printed");
-	}
 
-	@Test
-	public void dropTest() {
-		Board board = new Board(5, 5);
-		for (int i = 0; i < 7; i++) {
-			for (int j = 0; j < 5; j++) {
-				board.dropToken(j, TokenColor.YELLOW);
-			}
-		}
-		board.printBoard();
-	}
-
-	@Test
-	public void getHorizontalNeighbours() {
-		Board board = new Board(6, 5);
-		for (int i = 0; i < board.getWidth(); i++) {
-			board.dropToken(i, TokenColor.RED);
-		}
-	//	board.printBoard();
-
-		List<Token> row = board.getHorizontalNeighbours(board.getToken(2, 4));
-		
-		for (int i = 0; i < row.size(); i++) {
-	//		System.out.println(row.get(i).getSymbol());
+		for (int i = 0; i < board.getHeight() * board.getWidth(); ++i) {
+			board.getCells().add(new Token(TokenColor.BLANK));
 		}
 
-		if (Rules.straightWinCondition(row).getSymbol().equals("R")) {
-	//		System.out.println("Red won!");
-		} else if (Rules.straightWinCondition(row).getSymbol().equals("Y")) {
-	//		System.out.println("Yellow has won!");
-		}
-	}
-	
-	@Test
-	public void getVerticallNeighbours() {
-		Board board = new Board(6, 5);
+		// assertEquals(Rules.diagonalWinCondition(board), false);
+
+		((Token) board.getElement(0, 2)).setColor(TokenColor.RED);
+		((Token) board.getElement(0, 4)).setColor(TokenColor.RED);
+		((Token) board.getElement(2, 1)).setColor(TokenColor.RED);
+
+		// assertEquals(Rules.diagonalWinCondition(board), false);
+
 		for (int i = 0; i < board.getHeight(); i++) {
-			board.dropToken(0, TokenColor.YELLOW);
+			((Token) board.getElement(i, 0)).setColor(TokenColor.RED);
+			((Token) board.getElement(0, i)).setColor(TokenColor.RED);
 		}
-		board.printBoard();
 
-		List<Token> row = board.getVerticalNeighbours(board.getToken(0, 0));
+		// assertEquals(Rules.diagonalWinCondition(board), true);
+	}
+
+	
+	//Checks that the winCondition doesn't give false positives
+	@Test
+	public void notWin() {
+		Board board = new Board(5, 5);
+
+		for (int i = 0; i < board.getHeight() * board.getWidth(); ++i) {
+			board.getCells().add(new Token(TokenColor.BLANK));
+		}
+
+		((Token) board.getElement(4, 0)).setColor(TokenColor.RED);
+		assertEquals(Rules.winCondition(board), false);
+	}
+
+	
+	//Checks that win condition from top right to bottom left diagonally works.
+	@Test
+	public void rightDown() {
+		Board board = new Board(5, 5);
+
+		for (int i = 0; i < board.getHeight() * board.getWidth(); ++i) {
+			board.getCells().add(new Token(TokenColor.BLANK));
+		}
 		
-		for (int i = 0; i < row.size(); i++) {
-			System.out.println(row.get(i).getSymbol());
+		((Token) board.getElement(0, 4)).setColor(TokenColor.RED);
+		((Token) board.getElement(1, 3)).setColor(TokenColor.RED);
+		((Token) board.getElement(2, 2)).setColor(TokenColor.RED);
+		((Token) board.getElement(3, 1)).setColor(TokenColor.RED);
+		((Token) board.getElement(4, 0)).setColor(TokenColor.RED);
+		
+		IO.printBoard(board);
+		System.out.println(Rules.winCondition(board));
+		assertEquals(Rules.winCondition(board), true);
+	}
+
+	
+	//Checks that win condition for diagonal left and down towards right works
+	@Test
+	public void leftDown() {
+		Board board = new Board(5, 5);
+
+		for (int i = 0; i < board.getHeight() * board.getWidth(); ++i) {
+			board.getCells().add(new Token(TokenColor.BLANK));
 		}
 
-		if (Rules.straightWinCondition(row).getSymbol().equals("R")) {
-			System.out.println("Red won!");
-		} else if (Rules.straightWinCondition(row).getSymbol().equals("Y")) {
-			System.out.println("Yellow has won!");
-		}
+		((Token) board.getElement(3, 4)).setColor(TokenColor.RED);
+		((Token) board.getElement(2, 3)).setColor(TokenColor.RED);
+		((Token) board.getElement(1, 2)).setColor(TokenColor.RED);
+		((Token) board.getElement(0, 1)).setColor(TokenColor.RED);
+
+		((Token) board.getElement(4, 4)).setColor(TokenColor.RED);
+		((Token) board.getElement(3, 3)).setColor(TokenColor.RED);
+		((Token) board.getElement(2, 2)).setColor(TokenColor.RED);
+		((Token) board.getElement(1, 1)).setColor(TokenColor.RED);
+		((Token) board.getElement(0, 0)).setColor(TokenColor.RED);
+
+		((Token) board.getElement(4, 3)).setColor(TokenColor.RED);
+		((Token) board.getElement(3, 2)).setColor(TokenColor.RED);
+		((Token) board.getElement(2, 1)).setColor(TokenColor.RED);
+		((Token) board.getElement(1, 0)).setColor(TokenColor.RED);
+
+
+		assertEquals(Rules.winCondition(board), true);
 	}
 
 }

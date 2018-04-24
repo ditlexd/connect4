@@ -12,6 +12,7 @@ public class Game {
 	
 	private Board board; 
 	private ArrayList<IPlayer> players = new ArrayList<IPlayer>();
+	private Token lastPlayedToken; 
 	
 	public Game() {
 		board = new Board(5,5);
@@ -21,7 +22,6 @@ public class Game {
 	
 	public void startGame() {
 		boolean finished = false;
-		Token lastPlayedToken = null;
 		
 		for (int i = 0; i < board.getHeight() * board.getWidth(); ++i) {
 			board.getCells().add(new Token(TokenColor.BLANK));
@@ -29,33 +29,27 @@ public class Game {
 
 		while (!finished) {
 			for (int i = 0; i < players.size(); i++) {
-				lastPlayedToken = players.get(i).doTurn(this, board);
-				hasWon(lastPlayedToken);
+				IO.printBoard(board);
+				this.lastPlayedToken = players.get(i).doTurn(this, board);
+				if (Rules.winCondition(board)) {
+					hasWon();
+				}
 			}
-			
 		}
-		IO.printBoard(board);
 	}
 	
-	private <T> void hasWon(Token lastPlayedToken) {
-		List<T> horizontal = board.getHorizontalNeighbours(lastPlayedToken.getColumnPos(),
-				lastPlayedToken.getRowPos());
-		
-		List<T> vertical = board.getVerticalNeighbours(lastPlayedToken.getColumnPos(),
-				lastPlayedToken.getRowPos());
-		
-		
-		if (Rules.straightWinCondition(horizontal) || 
-			Rules.straightWinCondition(vertical)) {
+	private void hasWon() {
 
 			if (lastPlayedToken.getSymbol().equals("R")) {
 				System.out.println("Red won!");
+				IO.printBoard(board);
 				System.exit(0);
 			} else if (lastPlayedToken.getSymbol().equals("Y")) {
 				System.out.println("Yellow won!");
+				IO.printBoard(board);
 				System.exit(0);
 			}
-		}
+		
 	}
 	
 	public void insertToken(int x, int y, TokenColor tokenColor) {
@@ -68,10 +62,12 @@ public class Game {
 	}
 	
 	public Token dropToken(int column, TokenColor color) throws IllegalArgumentException {
-		if (column >= board.getWidth()) {
+		if (column >= board.getWidth() +1) {
 			throw new IllegalArgumentException("Not that many columns on the board!");
 			
 		}
+		
+		column--;
 
 		boolean dropped = false;
 

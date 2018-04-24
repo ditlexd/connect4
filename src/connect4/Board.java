@@ -27,29 +27,14 @@ public class Board<T> {
 	public int getHeight() {
 		return height;
 	}
-	
+
 	public List<T> getCells() {
 		return cells;
 	}
 
-
 	public T getElement(int column, int row) {
 		return cells.get(column + (row * width));
 	}
-
-	// Prints the board. Currently prints it upside down, aka 0,0 is top left
-	// corner.
-	public <T> void printBoard() {
-		int index = 0;
-		for (int j = 0; j < height; j++) {
-			for (int i = 0; i < width; i++) {
-				System.out.print("| " + ((Token) cells.get(index)).getSymbol() + " ");
-				index++;
-			}
-			System.out.print("|\n");
-		}
-	}
-
 
 	public List<T> getHorizontalNeighbours(int tokenColumn, int tokenRow) {
 		ArrayList<T> neighbours = new ArrayList<T>();
@@ -74,5 +59,7 @@ public class Board<T> {
 
 		return neighbours;
 	}
+
+	
 
 }

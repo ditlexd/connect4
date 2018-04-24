@@ -18,18 +18,14 @@ public class Player implements IPlayer {
 	}
 
 	@Override
-	public Token doTurn(Game game, Board board) {
-		int targetColumn = IO.getPlayerInput(this, board);
+	public Token doTurn(Game game, Board board) throws IllegalArgumentException {
 		boolean dropped = false;
 		Token token = null;
 
 		while (!dropped) {
-			try {
+				int targetColumn = IO.getPlayerInput(this, board);
 				token = game.dropToken(targetColumn, color);
 				dropped = true;
-			} catch (IllegalArgumentException e) {
-				System.out.println("Can't drop there, not enough room.");
-			}
 		}
 		return token;
 	}

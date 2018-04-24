@@ -19,7 +19,7 @@ public class AIPlayer implements IPlayer {
 	public void doTurn(Game game, Board board) {
 		Random random = new Random();
 		System.out.println(name + "'s turn");
-		board.dropToken(random.nextInt(5), color);
+		game.dropToken(random.nextInt(5), color);
 		
 	}
 

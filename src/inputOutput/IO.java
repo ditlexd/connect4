@@ -9,13 +9,12 @@ import connect4.Token;
 
 public class IO {
 	
-	public static int getPlayerInput(IPlayer player, Board board) {
+	public static int getPlayerInput(IPlayer player, Board board) throws IllegalArgumentException {
 		System.out.println(((Player) player).getName() + "'s turn!");
 		System.out.println("What column would you like to drop the token into?");
-		printBoard(board);
 		Scanner in = new Scanner(System.in);
 		int input = in.nextInt();
-		in.nextLine();
+		System.out.println();
 		return input;
 	}
 	
@@ -27,6 +26,10 @@ public class IO {
 				index++;
 			}
 			System.out.print("|\n");
+		}
+		
+		for (int i = 0; i < board.getWidth(); i++) {
+			System.out.print("  " + (i+1) + " ");
 		}
 	}
 
