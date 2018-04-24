@@ -2,12 +2,12 @@ package connect4;
 
 import java.awt.Color;
 
-public class Token<T> {
+public class Token {
 	private TokenColor color;
 	private int columnPos;
 	private int rowPos;
 
-	public Token(T color) {
+	public Token(TokenColor color) {
 		this.color = (TokenColor) color;
 	}
 
