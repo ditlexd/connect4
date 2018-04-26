@@ -6,6 +6,7 @@ import Players.IPlayer;
 import Players.Player;
 import connect4.Board;
 import connect4.Token;
+import connect4.TokenColor;
 
 public class IO {
 	
@@ -30,6 +31,17 @@ public class IO {
 		
 		for (int i = 0; i < board.getWidth(); i++) {
 			System.out.print("  " + (i+1) + " ");
+		}
+		System.out.println();
+	}
+	
+	public static void winMessage(IPlayer winner, Board board) {
+		if (winner.getColor().equals(TokenColor.RED)) {
+			System.out.println("Red won!");
+			printBoard(board);
+		} else if (winner.getColor().equals(TokenColor.YELLOW)) {
+			System.out.println("Yellow won!");
+			printBoard(board);
 		}
 	}
 

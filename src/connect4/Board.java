@@ -36,17 +36,7 @@ public class Board<T> {
 		return cells.get(column + (row * width));
 	}
 
-	public List<T> getHorizontalNeighbours(int tokenColumn, int tokenRow) {
-		ArrayList<T> neighbours = new ArrayList<T>();
-		int column = tokenColumn;
-		int row = tokenRow;
 
-		for (int i = 0; i < width; i++) {
-			neighbours.add(getElement(i, row));
-		}
-
-		return neighbours;
-	}
 
 	public List<T> getVerticalNeighbours(int tokenColumn, int tokenRow) {
 		ArrayList<T> neighbours = new ArrayList<T>();
@@ -59,7 +49,5 @@ public class Board<T> {
 
 		return neighbours;
 	}
-
 	
-
 }

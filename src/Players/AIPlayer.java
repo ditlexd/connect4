@@ -9,25 +9,33 @@ import connect4.TokenColor;
 public class AIPlayer implements IPlayer {
 	private TokenColor color;
 	private String name;
-	
-	public AIPlayer(TokenColor color) {
+
+	public AIPlayer(TokenColor color, String name) {
 		this.color = color;
-		this.name = "AIPlayer";
+		this.name = name;
 	}
 
 	@Override
-	public void doTurn(Game game, Board board) {
+	public boolean doTurn(Game game, Board board) {
 		Random random = new Random();
 		System.out.println(name + "'s turn");
-		game.dropToken(random.nextInt(5), color);
-		
+		boolean dropped = false;
+
+		while (!dropped) {
+			int target= random.nextInt(board.getWidth() +1);
+			
+			if (target > 0 && target <= board.getWidth()) {
+				 dropped = game.dropToken(target, color);
+			}
+		}
+		return dropped;
 	}
 
 	@Override
 	public TokenColor getColor() {
 		return color;
 	}
-	
+
 	public String getName() {
 		return name;
 	}

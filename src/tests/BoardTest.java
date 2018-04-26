@@ -8,12 +8,16 @@ import java.util.List;
 import org.junit.Test;
 
 import connect4.Board;
+import connect4.Game;
 import connect4.Token;
 import connect4.TokenColor;
 import inputOutput.IO;
 import rules.Rules;
 
 public class BoardTest {
+	Game game = new Game(2);
+	Board board = new Board(5,5);
+	Rules rules = new Rules();
 
 	@Test
 	public <T> void boardSize() {
@@ -32,20 +36,20 @@ public class BoardTest {
 			board.getCells().add(new Token(TokenColor.BLANK));
 		}
 
-		// assertEquals(Rules.diagonalWinCondition(board), false);
+		assertEquals(rules.winCondition(board), false);
 
 		((Token) board.getElement(0, 2)).setColor(TokenColor.RED);
 		((Token) board.getElement(0, 4)).setColor(TokenColor.RED);
 		((Token) board.getElement(2, 1)).setColor(TokenColor.RED);
 
-		// assertEquals(Rules.diagonalWinCondition(board), false);
+		 assertEquals(rules.winCondition(board), false);
 
 		for (int i = 0; i < board.getHeight(); i++) {
 			((Token) board.getElement(i, 0)).setColor(TokenColor.RED);
 			((Token) board.getElement(0, i)).setColor(TokenColor.RED);
 		}
 
-		// assertEquals(Rules.diagonalWinCondition(board), true);
+		 assertEquals(rules.winCondition(board), true);
 	}
 
 	
@@ -59,7 +63,7 @@ public class BoardTest {
 		}
 
 		((Token) board.getElement(4, 0)).setColor(TokenColor.RED);
-		assertEquals(Rules.winCondition(board), false);
+		assertEquals(rules.winCondition(board), false);
 	}
 
 	
@@ -78,9 +82,7 @@ public class BoardTest {
 		((Token) board.getElement(3, 1)).setColor(TokenColor.RED);
 		((Token) board.getElement(4, 0)).setColor(TokenColor.RED);
 		
-		IO.printBoard(board);
-		System.out.println(Rules.winCondition(board));
-		assertEquals(Rules.winCondition(board), true);
+		assertEquals(game.getRules().winCondition(board), true);
 	}
 
 	
@@ -110,7 +112,7 @@ public class BoardTest {
 		((Token) board.getElement(1, 0)).setColor(TokenColor.RED);
 
 
-		assertEquals(Rules.winCondition(board), true);
+		assertEquals(game.getRules().winCondition(board), true);
 	}
 
 }

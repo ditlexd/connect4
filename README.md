@@ -32,15 +32,50 @@ Dette prosjektet inneholder [Semesteroppgave 2](SEM-2.md). Du kan også [lese op
    * [ ] Fornuftige abstraksjoner og innkapsling (bruk av klasser, interface, metoder, etc.)
 
 ## Oversikt
-*(oversikt over koden din og det du har gjort)*
+Jeg har valgt å løse oppgaven med print-statements i stedet for en GUI. All print (output) og input skjer gjennom IO-klassen, så det skal være relativt enkelt å legge inn en GUI. 
+Spillet er delt inn i klasser som har hver sin oppgave: 
+
+- Main initierer Game() og kjører startGame()
+
+- Game har oversikten over hva som skjer og sørger for at ting skjer i riktig rekkefølge. Litt som en Dungeon Master i DnD, eller en ordfører i en diskusjon. Game skal selv ha relativt lite funksjon, men sørger for at ting skjer riktig i henhold til hvordan spillet skal oppføre seg. Game sørger for at spillerene utfører hver sin tur, den sjekker i reglene om en spiller har vunnet, og den sørger for at brikkene blir plassert riktig inn i brettet (at de faller ned).
+Game er nødt til å ha funksjonaliteten til å "droppe" en token på grunn av måten Board er blitt implementert på. Siden Board blir fyllt opp med "gjennomsiktige" tokens i stedet for en haug med null-verdier, så må funksjonen som sjekker om en rekke har plass til en ny token finne ut av om tokene som ligger der er BLANK eller om de har en farge. Siden Board skal være generisk så ber Game om en token på en gitt posisjon, sjekker om det er mulig å plassere en spillers Token der. Hvis et er mulig så skifter Game fargen på den korrekte token. For spilleren ser det ut som at en ny farget token blir droppet i en rad der det tidligere var tomt. 
+
+- Board<T>. Basert på MyGrid fra forelesningene. Generisk klasse som inneholder en liste med Tokens. Klassen har enkel funksjonalitet som å returnere en token på en viss posisjon i griden. 
+
+- IO. All input og output. Player kaller denne klassen for å få input fra brukeren, Game kaller også denne klassen for å skrive ut spillbrettet. 
+Målet er at denne klassen enkelt skal kunne skiftes ut med en GUI. 
+
+- IPlayer. Felles Interface for Player og AIPlayer. Har kun metodene doTurn og getColor. GetColor returnerer denne spillerens farge (RED eller YELLOW), mens doTurn blir kallt av Game og gjør at spilleren utfører sitt trekk.
+
+   - Player. DoTurn her ber om input fra brukeren gjennom IO-klassen. 
+   - IAPlayer. DoTurn her returnerer en int basert på en algoritme. Foreløpig gis det nummeret til en tilfeldig rad, men i fremtiden kan denne metoden returnere et smartere valg. Det bør være enkelt å implementere (gitt at man har en god algoritme) siden alle IPlayers får tilgang til Board når de blir kallt av Game, og fordi den kun skal returnere en int som er mellom 1 - board.getWidth
+
+- TokenColor. Enum som gir en verdi lik den fargen en token har. Hver spiller han sin egen TokenColor og hver token har enten TokenColor BLANK,RED eller YELLOW. 
+
+- Rules. Regelbok og dommer. Her ligger den store algoritmen som sjekker om en spiller har vunnet. Dette er en modifisert algoritme herfra: https://codereview.stackexchange.com/questions/127091/java-connect-four-four-in-a-row-detection-algorithms?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+   
+   Opprinnelig ville jeg kun sjekke siste droppede token, men dette viste seg å være vanskelig når jeg skulle sjekke diagonalt. Nå sjekker den alle tokens om den har fire på rad, men den hopper over Tokens som har TokenColor.BLANK. 
+   Ulempen med algoritmen jeg har valgt er at den kun sjekker fire på rad. Det må en del koding til for at den f.eks skal sjekke fem på rad, men det er mulig jeg finner en måte å fikse det på etterhvert.  
+
+-Tester: Tester for hver klasse sin metode. Sjekker at riktig output får ved et gitt input. 
+
 ### Bruk
-* For å starte programmet kjør: `fyll.inn.her`
+* For å starte programmet kjør: Main()
 
 ## Designvalg
-*(hvordan du har valgt å løse oppgaven)*
+Jeg har valgt å dele det opp slik: 
+- Board er en generisk klasse og ikke spesielt laget for connect 4. det er en grid som får beskjed om hvor stor den skal være og som holder orden på hvor i griden dens elementer er plassert. Det er mulig jeg flytter dropToken over fra Game til Board og kaller den for dropElement. 
+
+- Game er derimot laget for connect four og inneholder funksjonalitet som gjør det mulig å bruke Board til connect 4. Den viktigste er dropToken() som gjør at brikkene faller lengst ned i raden. 
+
+- Rules inneholder algoritmen som sjekker om noen har vunnet. Den er helt adskilt slik at det skal være mulig å endre på reglene. 
+
+- IO er klassen som tar seg av all out- og input. Denne er statisk siden litt forskjellige klasser kan tenkes å benytte denne. Player kan tenkes å oppdatere status eller lignende i senere versjoner, og da er det dumt og vi må sende rundt IO til forskjellige metoder. 
 
 ### Bruk av abstraksjon
 *(hvordan du har valgt objekter/klasser for å representere ting i spillet)*
+
+
 
 ### Erfaring – hvilke valg viste seg å være gode / dårlige?
 *(designerfaringer – er det noe du ville gjort annerledes?)*

@@ -8,10 +8,11 @@ import connect4.Board;
 import connect4.Token;
 import connect4.TokenColor;
 
-public class Rules {
+public class Rules<T> {
 	private static int WIN_NUMBER = 4;
+	private List<Token> list = new ArrayList<Token>();
 
-	public static <T> boolean straightWinCondition(List<T> tokens) {
+	public <T> boolean straightWinCondition(List<T> tokens) {
 		int redCounter = 0;
 		int yellowCounter = 0;
 
@@ -35,7 +36,11 @@ public class Rules {
 		return false;
 	}
 	
-	public static boolean winCondition(Board board) {
+	public List<Token> getList() {
+		return this.list;
+	}
+	
+	public <T> boolean winCondition(Board<T> board) {
 		int HEIGHT = board.getHeight();
 		int WIDTH = board.getWidth();
 		
@@ -49,24 +54,46 @@ public class Rules {
 		            if (column + 3 < WIDTH &&
 		                player.getColor().equals(((Token) board.getElement(column + 1, row)).getColor()) && // look right
 		                player.getColor().equals(((Token) board.getElement(column + 2, row)).getColor()) &&
-		                player.getColor().equals(((Token) board.getElement(column + 3, row)).getColor()))
-		                return true;
+		                player.getColor().equals(((Token) board.getElement(column + 3, row)).getColor())) {
+		            	list.add((Token) board.getElement(column, row));
+		            	list.add((Token)board.getElement(column +1, row));
+		            	list.add((Token)board.getElement(column +2, row));
+		            	list.add((Token)board.getElement(column +3, row));
+		          //  	System.out.println("Look right rule applied"); // These print statements can be used when it's difficult
+		                return true;									//to see where the winning combination is.
+		            }
 		            if (row + 3 < HEIGHT) {
 		                if (player.getColor().equals(((Token) board.getElement(column, row +1)).getColor()) && // look up
 		                	player.getColor().equals(((Token) board.getElement(column, row +2)).getColor()) &&
-		                	player.getColor().equals(((Token) board.getElement(column, row +3)).getColor())) 
+		                	player.getColor().equals(((Token) board.getElement(column, row +3)).getColor())) {
+		                	list.add((Token) board.getElement(column, row));
+		                	list.add((Token) board.getElement(column, row +1));
+		                	list.add((Token) board.getElement(column, row +2));
+		                	list.add((Token) board.getElement(column, row +3));
+		              //  	System.out.println("Look up rule applied");
 		                    return true;
 		                }
-		                if ((column + 3 <= WIDTH && row -3 >= 0) &&
+		                }
+		                if ((column + 3 < WIDTH && row -3 >= 0) &&
 		                		player.getColor().equals(((Token) board.getElement(column +1, row -1)).getColor()) && // look up & right
 		                		player.getColor().equals(((Token) board.getElement(column +2, row -2)).getColor()) &&
 		                		player.getColor().equals(((Token) board.getElement(column +3, row -3)).getColor())) {
+		                	list.add((Token) board.getElement(column, row));
+		                	list.add((Token) board.getElement(column +1, row -1));
+		                	list.add((Token) board.getElement(column +2, row -2));
+		                	list.add((Token) board.getElement(column +3, row -3));
+		              //  	System.out.println("Look UP to the RIGHT apllied");
 		                    return true;
 		                }
 		                if ((column - 3 >= 0 && row - 3 >= 0) &&
 		                		player.getColor().equals(((Token) board.getElement(column -1, row -1)).getColor()) && // look up & left
 		                		player.getColor().equals(((Token) board.getElement(column -2, row -2)).getColor())  &&
 		                		player.getColor().equals(((Token) board.getElement(column -3, row -3)).getColor())) {
+		                	list.add((Token) board.getElement(column, row));
+		                	list.add((Token) board.getElement(column -1, row -1));
+		                	list.add((Token) board.getElement(column -2, row -2));
+		                	list.add((Token) board.getElement(column -3, row -3));
+		          //      	System.out.println("Look UP to the LEFT applied");
 		                    return true;
 		                }
 		            }
