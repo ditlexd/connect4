@@ -17,6 +17,7 @@ public class Player implements IPlayer {
 		this.name = name;
 	}
 
+	//Returns true when a token has been dropped in taret column in Board. 
 	@Override
 	public boolean doTurn(Game game, Board board) throws IllegalArgumentException {
 		boolean dropped = false;

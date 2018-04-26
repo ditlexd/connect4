@@ -8,33 +8,18 @@ import connect4.Board;
 import connect4.Token;
 import connect4.TokenColor;
 
+	/*
+	 * The class that decides if a board contains a winning combination. 
+	 * As of now only one winning combination is possible. It's should be doable to modify the winning algorith to be more dynamic,
+	 * but the focus has been on making a connect 4 game, not on potentially expanding the rules. 
+	 * 
+	 * The list is for debugging purposes, it is benificial to know what tokens are responsible for triggering the win-mechanism.
+	 * 
+	 * The commented out print statements are also for debugging purposes. 
+	 */
 public class Rules<T> {
-	private static int WIN_NUMBER = 4;
 	private List<Token> list = new ArrayList<Token>();
 
-	public <T> boolean straightWinCondition(List<T> tokens) {
-		int redCounter = 0;
-		int yellowCounter = 0;
-
-		for (int i = 0; i < tokens.size(); i++) {
-			if (((Token)tokens.get(i)).getSymbol().equals("R")) {
-				redCounter++;
-				yellowCounter = 0;
-			} else if (((Token)tokens.get(i)).getSymbol().equals("Y")) {
-				yellowCounter++;
-				redCounter = 0;
-			} else {
-				yellowCounter = 0;
-				redCounter = 0;
-			}
-
-			if (redCounter == WIN_NUMBER || yellowCounter == WIN_NUMBER) {
-				return true;
-			}
-
-		}
-		return false;
-	}
 	
 	public List<Token> getList() {
 		return this.list;

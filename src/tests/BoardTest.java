@@ -14,6 +14,10 @@ import connect4.TokenColor;
 import inputOutput.IO;
 import rules.Rules;
 
+/*
+ * Tests for Board class. 
+ * Rules class is also tested here.
+ */
 public class BoardTest {
 	Game game = new Game(2);
 	Board board = new Board(5,5);

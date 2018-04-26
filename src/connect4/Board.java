@@ -37,7 +37,6 @@ public class Board<T> {
 	}
 
 
-
 	public List<T> getVerticalNeighbours(int tokenColumn, int tokenRow) {
 		ArrayList<T> neighbours = new ArrayList<T>();
 		int column = tokenColumn;
