@@ -24,10 +24,10 @@ Dette prosjektet inneholder [Semesteroppgave 2](SEM-2.md). Du kan også [lese op
    * [ ] jeg har fått tilbakemelding underveis fra @brukernavn, ...
    * [ ] jeg har gitt tilbakemelding underveis til @brukernavn, ...
 * Sjekkliste:
-   * [ ] Kjørbart Fire på Rad-spill
+   * [X] Kjørbart Fire på Rad-spill
    * [ ] Forklart designvalg, hvordan koden er organisert, abstraksjon, og andre ting 
    * [ ] Tester
-   * [ ] Dokumentasjon (JavaDoc, kommentarer, diagrammer, README, etc.)
+   * [X] Dokumentasjon (JavaDoc, kommentarer, diagrammer, README, etc.)
    * [ ] Fornuftige navn på klasser, interfaces, metoder og variabler
    * [ ] Fornuftige abstraksjoner og innkapsling (bruk av klasser, interface, metoder, etc.)
 
@@ -79,15 +79,21 @@ Jeg har valgt å dele det opp slik:
 
 ### Erfaring – hvilke valg viste seg å være gode / dårlige?
 *(designerfaringer – er det noe du ville gjort annerledes?)*
+Ville kanskje fyllt opp Bord med null-verdier i stedet for å bruke tomme tokens. Mistenker at jeg da kunne lettere lagt dropToken inn i Board, og ikke i Game.
+Jeg syns ikke det i utgangspunktet er noe problem å ha den i Game, men det hadde vært en liten forbedring. 
 
 ## Testing
 *(hvordan du har testet ting)*
 
 ## Funksjonalitet, bugs
-*(hva virker / virker ikke)*
+Spillet fungerer bra, og jeg er fornøyd med hvordan det er satt opp. Den eneste kjente bugen er at det ikke kommer noen feilmelding hvis brettet fylles
+helt opp med brikker uten at noen har fått fire på rad. 
 
 ## Evt. erfaring fra code review
 *(lærte du noe av å gå gjennom din eller andres kode?)*
+Review med Oda Innana Stene. 
+Hjalp meg til å gjøre Board helt generisk. Tidligere hadde jeg en del metoder som castet T til (Token). 
 
 ## Annet
 *(er det noe du ville gjort annerledes?)*
+
