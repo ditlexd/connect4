@@ -20,6 +20,7 @@ public class IO {
 	}
 	
 	public static void printBoard(Board board) {
+		System.out.println("Hello");
 		int index = 0;
 		for (int j = 0; j < board.getHeight(); j++) {
 			for (int i = 0; i < board.getWidth(); i++) {

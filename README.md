@@ -21,15 +21,15 @@ Dette prosjektet inneholder [Semesteroppgave 2](SEM-2.md). Du kan også [lese op
 * Levert av:   *NAVN* (*BRUKERNAVN*)
 * [ ] hele semesteroppgaven er ferdig og klar til retting!
 * Code review:
-   * [ ] jeg har fått tilbakemelding underveis fra @brukernavn, ...
-   * [ ] jeg har gitt tilbakemelding underveis til @brukernavn, ...
+   * [x] jeg har fått tilbakemelding underveis fra @brukernavn, Oda Innana Stene
+   * [x] jeg har gitt tilbakemelding underveis til @brukernavn, Oda Innana Stene
 * Sjekkliste:
    * [X] Kjørbart Fire på Rad-spill
-   * [ ] Forklart designvalg, hvordan koden er organisert, abstraksjon, og andre ting 
-   * [ ] Tester
+   * [X] Forklart designvalg, hvordan koden er organisert, abstraksjon, og andre ting 
+   * [X] Tester
    * [X] Dokumentasjon (JavaDoc, kommentarer, diagrammer, README, etc.)
-   * [ ] Fornuftige navn på klasser, interfaces, metoder og variabler
-   * [ ] Fornuftige abstraksjoner og innkapsling (bruk av klasser, interface, metoder, etc.)
+   * [X] Fornuftige navn på klasser, interfaces, metoder og variabler
+   * [X] Fornuftige abstraksjoner og innkapsling (bruk av klasser, interface, metoder, etc.)
 
 ## Oversikt
 Jeg har valgt å løse oppgaven med print-statements i stedet for en GUI. All print (output) og input skjer gjennom IO-klassen, så det skal være relativt enkelt å legge inn en GUI. 
@@ -75,15 +75,21 @@ Jeg har valgt å dele det opp slik:
 ### Bruk av abstraksjon
 *(hvordan du har valgt objekter/klasser for å representere ting i spillet)*
 
+Forsøkte å lage en abstract class av Board som den kunne arve fra. Viste seg at det ble vanskelig da alle metodene i Board håndterer feltvariablene, og jeg klarte ikke finne en måte å 
+
 
 
 ### Erfaring – hvilke valg viste seg å være gode / dårlige?
 *(designerfaringer – er det noe du ville gjort annerledes?)*
 Ville kanskje fyllt opp Bord med null-verdier i stedet for å bruke tomme tokens. Mistenker at jeg da kunne lettere lagt dropToken inn i Board, og ikke i Game.
 Jeg syns ikke det i utgangspunktet er noe problem å ha den i Game, men det hadde vært en liten forbedring. 
+Hadde jeg startet på nytt igjen hadde jeg fyllt opp brettet med null-verdier heller enn BLANK tokens. Da kunne jeg enklere flyttet dropToken() inn i Board. Jeg forsøkte å gjøre det, men det ble kluss med måten jeg printer ut på og jeg måtte ha endret en del metoder. 
+
+Hadde jeg hatt mer tid ville jeg skrevet om Board slik at den inneholder en dropToken-metode. Også hadde jeg laget en abstract class som Board kunne arvet fra, som inneholder alle de "standard" grid-metodene, slik at jeg hadde en vanlig Grid og en Board som er spesialisert for connect 4. 
+Fikk dessverre ikke en slik abstrakt arving til å fungere. 
 
 ## Testing
-*(hvordan du har testet ting)*
+Laget tester til de fleste metodene der jeg sjekker at det som kommer ut samsvarer med det som går inn. 
 
 ## Funksjonalitet, bugs
 Spillet fungerer bra, og jeg er fornøyd med hvordan det er satt opp. Den eneste kjente bugen er at det ikke kommer noen feilmelding hvis brettet fylles
