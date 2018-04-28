@@ -3,42 +3,15 @@ package connect4;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Board<T> {
+public class Board<T> extends Grid<T> {
 
-	private List<T> cells;
-	private int width;
-	private int height;
+	
 
 	// Creates a new game board with the given dimensions.
 	public Board(int width, int height) {
-		super(); 
-		if (width <= 0 || height <= 0) {
-			throw new IllegalArgumentException();
-		}
+		super(width,height);
 		
-		this.height = height;
-		this.width = width;
-		cells = new ArrayList<T>();
 	}
 	
-	public int getHeight() {
-		return height;
-	}
-	
-	public int getWidth() {
-		return width;
-	}
-	
-	public List<T> getCells() {
-		return cells;
-	}
-	
-	public T getElement(int column, int row) {
-		return cells.get(column + (row * width));
-	}
-	
-	public void setElement(int column, int row, T element) {
-		 cells.set((column + (row * width)), element);
-	}
 
 }

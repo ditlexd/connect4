@@ -118,5 +118,10 @@ public class BoardTest {
 
 		assertEquals(game.getRules().winCondition(board), true);
 	}
+	
+	@Test
+	public void gridTest() {
+		assertEquals(board.returnInt(), 1);
+	}
 
 }
