@@ -112,5 +112,20 @@ public class Game {
 	public Rules getRules() {
 		return rules;
 	}
+	
+	public <T> boolean compareTokens(T token1, T token2) {
+		if (token1 == null || token2 == null) 
+			return false; 
+		if (!(token1 instanceof Token) || !(token2 instanceof Token))
+			return false;
+		if (token1.equals(token2))
+			return true;
+		Token tk1 = ((Token) token1);
+		Token tk2 = ((Token) token2);
+		if (tk1.getColor().equals(tk2.getColor()))
+			return true;
+		
+		return false;
+	}
 
 }

@@ -47,6 +47,7 @@ public class GameTest {
 		board.setElement(0, 4, new Token(TokenColor.RED));
 
 		assertEquals(winCondition(board), true);
+		assertEquals(checkHorizontalAlt(board, 4), true);
 	}
 
 	@Test
@@ -75,7 +76,7 @@ public class GameTest {
 		board.setElement(2, 2, new Token(TokenColor.RED));
 		board.setElement(1, 1, new Token(TokenColor.RED));
 
-	
+		IO.printNull(board);
 		assertEquals(winCondition(board), true);
 		board.clearBoard();
 		
@@ -159,7 +160,7 @@ public class GameTest {
 		return false;
 	}
 	
-	private boolean checkDiagonal(Board board, int winCondition) {
+	private <T> boolean checkDiagonal(Board board, int winCondition) {
 		int WIDTH = board.getWidth();
 		int HEIGHT = board.getHeight();
 
@@ -167,20 +168,18 @@ public class GameTest {
 			for (int column = 0; column < WIDTH; column++) { // iterate columns, left to right
 				// Token player = ((Token) board.getElement(column, row));
 				if (board.getElement(column, row) != null) {
-					Token player = ((Token) board.getElement(column, row));
+					T token = ((T) board.getElement(column, row));
 
 					if (column + 3 < WIDTH && row -3 >= 0) {
 						int counter = 1;
 						for (int i = 0; i < HEIGHT; i++) {
 							if (board.getElement(column+i, row-i) == null) {
-								System.out.println((column+i) +" " + (row-i));
 								break;
 							}
-							if (player.getColor().equals(((Token) board.getElement(column+i, row-i)).getColor())) {
+							if (game.compareTokens(token, board.getElement(column+i, row-i))) {
 								counter++;
 							}
 							if (counter == winCondition) {
-								System.out.println("Triggered");
 								return true;
 							}
 						}
@@ -188,13 +187,12 @@ public class GameTest {
 					
 					if (column - 3 >= 0 && row - 3 >= 0) {
 						int counter = 1;
-						for (int i = 0; i < HEIGHT; i++) {
+						for (int i = 0; i < WIDTH; i++) {
 							if (board.getElement(column-i, row-i) == null)
 								break;
-							if (player.getColor().equals(((Token) board.getElement(column-i, row-i)).getColor())) {
+							if (game.compareTokens(token, board.getElement(column-i, row-i)))
 								counter++;
-							}
-							if (counter == 4)
+							if (counter == winCondition) 
 								return true;
 						}
 					} 
@@ -203,6 +201,41 @@ public class GameTest {
 				}
 			}
 		}
+		return false;
+	}
+	
+	private <T> boolean checkHorizontalAlt(Board board, int winCondition) {
+		int WIDTH = board.getWidth();
+		int HEIGHT = board.getHeight();
+		
+
+		for (int row = 0; row < HEIGHT; row++) { // iterate rows, bottom to top
+			for (int column = 0; column < WIDTH; column++) { // iterate columns, left to right
+				// Token player = ((Token) board.getElement(column, row));
+				if (board.getElement(column, row) != null) {
+					T token = (T) board.getElement(column, row);
+
+					if (column + 3 < WIDTH) {
+						int counter = 1;
+						for (int i = column + 1; i < WIDTH; i++) {
+							if (board.getElement(i, row) == null)
+								break;
+							
+							if (game.compareTokens(token, board.getElement(i, row)))
+								counter++;
+							
+				//			if (player.getColor().equals(((Token) board.getElement(i, row)).getColor()))
+					//			counter++;
+							if (counter == winCondition)
+								return true;
+						}
+					}
+							
+				} else 
+					continue;
+			}
+		}
+		
 		return false;
 	}
 	
