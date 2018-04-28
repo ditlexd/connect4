@@ -24,7 +24,7 @@ public class Player implements IPlayer {
 
 		while (!dropped) {
 			int targetColumn = IO.getPlayerInput(this, board);
-			if (game.dropToken(targetColumn, this.color)) {
+			if (board.dropToken(targetColumn, new Token(color))) {
 				dropped = true;
 			}
 		}

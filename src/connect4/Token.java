@@ -47,5 +47,19 @@ public class Token {
 	public int getRowPos() {
 		return rowPos;
 	}
+	
+	public <T> boolean compareColor(T token) {
+		if (token == null) 
+			return false; 
+		if (!(token instanceof Token))
+			return false;
+		if (token.equals(this))
+			return true;
+		Token tk = ((Token) token);
+		if (tk.getColor().equals(color))
+			return true;
+		
+		return false; 
+	}
 
 }

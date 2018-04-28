@@ -4,6 +4,7 @@ import java.util.Random;
 
 import connect4.Board;
 import connect4.Game;
+import connect4.Token;
 import connect4.TokenColor;
 
 public class AIPlayer implements IPlayer {
@@ -25,7 +26,7 @@ public class AIPlayer implements IPlayer {
 			int target= random.nextInt(board.getWidth() +1);
 			
 			if (target > 0 && target <= board.getWidth()) {
-				 dropped = game.dropToken(target, color);
+				 dropped = board.dropToken(target, new Token(color));
 			}
 		}
 		return dropped;

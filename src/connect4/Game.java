@@ -38,10 +38,7 @@ public class Game {
 		}
 		}
 
-		// Initiates a Board with BLANK tokens. For the player, the board looks empty
-		for (int i = 0; i < board.getHeight() * board.getWidth(); ++i) {
-			board.getCells().add(new Token(TokenColor.BLANK));
-		}
+		board.initializeBoard();
 
 	}
 
@@ -55,7 +52,7 @@ public class Game {
 			boolean dropped = false;
 			for (int i = 0; i < players.size(); i++) {
 				do {
-				IO.printBoard(board);
+				IO.printNull(board);
 				try {
 					 dropped = players.get(i).doTurn(this, board);
 				} catch (IllegalArgumentException | IndexOutOfBoundsException | InputMismatchException e) {

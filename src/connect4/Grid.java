@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Grid<T> {
 	
-	private List<T> cells;
+	public List<T> cells;
 	private int width;
 	private int height;
 

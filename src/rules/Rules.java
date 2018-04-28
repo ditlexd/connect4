@@ -32,10 +32,13 @@ public class Rules<T> {
 		
 		 for (int row = 0; row < HEIGHT; row++) { // iterate rows, bottom to top
 		        for (int column = 0; column < WIDTH; column++) { // iterate columns, left to right
-		        	Token player = ((Token) board.getElement(column, row));
-		            if (player.getColor().equals(TokenColor.BLANK))
+		       // 	Token player = ((Token) board.getElement(column, row));
+		            if (board.getElement(column, row) == null) {     
 		                continue; // don't check empty slots
-
+		            }
+		            
+		            Token player = ((Token) board.getElement(column, row));
+		            
 		            if (column + 3 < WIDTH &&
 		                player.getColor().equals(((Token) board.getElement(column + 1, row)).getColor()) && // look right
 		                player.getColor().equals(((Token) board.getElement(column + 2, row)).getColor()) &&

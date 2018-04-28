@@ -39,11 +39,31 @@ public class IO {
 	public static void winMessage(IPlayer winner, Board board) {
 		if (winner.getColor().equals(TokenColor.RED)) {
 			System.out.println("Red won!");
-			printBoard(board);
+			printNull(board);
 		} else if (winner.getColor().equals(TokenColor.YELLOW)) {
 			System.out.println("Yellow won!");
-			printBoard(board);
+			printNull(board);
 		}
+	}
+	
+	public static void printNull(Board board) {
+		int index = 0;
+		for (int j = 0; j < board.getHeight(); j++) {
+			for (int i = 0; i < board.getWidth(); i++) {
+				if (((Token) board.getCells().get(index)) != null) {
+					System.out.print("| " + ((Token) (board.getCells()).get(index)).getSymbol() + " ");
+				} else {
+					System.out.print("|   ");
+				}
+				index++;
+			}
+			System.out.print("|\n");
+		}
+		
+		for (int i = 0; i < board.getWidth(); i++) {
+			System.out.print("  " + (i+1) + " ");
+		}
+		System.out.println();
 	}
 
 }

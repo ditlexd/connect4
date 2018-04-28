@@ -123,5 +123,39 @@ public class BoardTest {
 	public void gridTest() {
 		assertEquals(board.returnInt(), 1);
 	}
+	
+	@Test
+	public void initializeBoard() {
+		int width = 5;
+		int height = 5;
+		
+		Board board2 = new Board(width, height);
+		
+		board2.initializeBoard();
+		
+		for (int i = 0; i < (width * height); i++) {
+			assertEquals(board2.getCells().get(i), null);
+		}
+	}
+	
+	@Test
+	public void printNullTest() {
+		board.initializeBoard();
+		
+		board.setElement(4, 3, new Token(TokenColor.RED));
+		board.setElement(3, 2, new Token(TokenColor.RED));
+		board.setElement(2, 1, new Token(TokenColor.RED));
+		board.setElement(1, 0, new Token(TokenColor.RED));
+		
+		IO.printNull(board);
+		
+		board.dropToken(1, new Token(TokenColor.YELLOW));
+		board.dropToken(3, new Token(TokenColor.YELLOW));
+		board.dropToken(1, new Token(TokenColor.YELLOW));
+		board.dropToken(5, new Token(TokenColor.YELLOW));
+		
+		IO.printNull(board);
+		
+	}
 
 }
