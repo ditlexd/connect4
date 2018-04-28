@@ -76,7 +76,6 @@ public class GameTest {
 		board.setElement(2, 2, new Token(TokenColor.RED));
 		board.setElement(1, 1, new Token(TokenColor.RED));
 
-		IO.printNull(board);
 		assertEquals(winCondition(board), true);
 		board.clearBoard();
 		
@@ -237,6 +236,19 @@ public class GameTest {
 		}
 		
 		return false;
+	}
+	
+	@Test
+	public void testCompare() {
+		Token red1 = new Token(TokenColor.RED);
+		Token red2 = new Token(TokenColor.RED);
+		Token yellow1 = new Token(TokenColor.YELLOW);
+		Token yellow2 = new Token(TokenColor.YELLOW);
+		Token nullToken = null;
+		
+		assertEquals(game.compareTokens(red1, red2), true);
+		assertEquals(game.compareTokens(red1, yellow1), false);
+		assertEquals(game.compareTokens(yellow2, nullToken), false);
 	}
 	
 }

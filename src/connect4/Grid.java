@@ -9,7 +9,7 @@ public class Grid<T> {
 	private int width;
 	private int height;
 
-	// Creates a new game board with the given dimensions.
+	// Creates a new grid with the given dimensions.
 	public Grid(int width, int height) {
 		super(); 
 		if (width <= 0 || height <= 0) {
@@ -35,10 +35,6 @@ public class Grid<T> {
 	
 	public T getElement(int column, int row) {
 		return cells.get(column + (row * width));
-	}
-	
-	public int returnInt() {
-		return 1;
 	}
 	
 	public void setElement(int column, int row, T element) {

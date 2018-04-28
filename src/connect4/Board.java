@@ -19,9 +19,6 @@ public class Board<T> extends Grid<T> {
 		}
 	}
 	
-	public void setToken(int column, int row) {
-		
-	}
 	
 	public boolean dropToken(int column, T token) {
 		if (column >= super.getWidth() + 1) {

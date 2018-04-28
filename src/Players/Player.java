@@ -12,14 +12,12 @@ public class Player implements IPlayer {
 	private TokenColor color;
 	private String name;
 
-	public Player(TokenColor color, String name) {
+	public Player(TokenColor color) {
 		this.color = color;
-		this.name = name;
 	}
 
 	//Returns true when a token has been dropped in taret column in Board. 
-	@Override
-	public boolean doTurn(Game game, Board board) throws IllegalArgumentException {
+	public boolean doTurn(Board board) throws IllegalArgumentException {
 		boolean dropped = false;
 
 		while (!dropped) {
@@ -31,13 +29,9 @@ public class Player implements IPlayer {
 		return dropped;
 	}
 
-	@Override
 	public TokenColor getColor() {
 		return color;
 	}
 
-	public String getName() {
-		return name;
-	}
 
 }

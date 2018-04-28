@@ -11,7 +11,7 @@ public class Main {
 	 * Switch between modes by giving game constructor different ints 0 - 2.
 	 */
 	public static void main(String[] args) {
-		Game game = new Game(1);
+		Game game = new Game(0);
 		game.startGame();
 	}
 

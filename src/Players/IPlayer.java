@@ -11,10 +11,20 @@ import connect4.TokenColor;
 
 public interface IPlayer {
 	
-	//Do a turn. Drop a token in a column on the board
-	 boolean doTurn(Game game, Board board);
+	/*
+	 * <p>
+	 * Do a turn. Drop a token in a column on the board.
+	 * Drop token in the Board. Return true when dropped. 
+	 * </p>
+	 * 
+	 * @param game
+	 * @param board
+	 */
+	 boolean doTurn(Board board);
 	 
-	 //What color is the player? It can be red or Yellow.
+	 /*
+	  * Return the color of the players tokens.
+	  */
 	 TokenColor getColor();
 	 
 	 

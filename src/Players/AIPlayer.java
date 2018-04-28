@@ -6,20 +6,24 @@ import connect4.Board;
 import connect4.Game;
 import connect4.Token;
 import connect4.TokenColor;
+import inputOutput.IO;
 
 public class AIPlayer implements IPlayer {
 	private TokenColor color;
 	private String name;
 
-	public AIPlayer(TokenColor color, String name) {
+	public AIPlayer(TokenColor color) {
 		this.color = color;
 		this.name = name;
 	}
 
+	/* 
+	 * Very stupid AI. Picks a random number between 1 and board width. 
+	 * In the future I can hopefully uprgade this to return a smart move.
+	 */
 	@Override
-	public boolean doTurn(Game game, Board board) {
+	public boolean doTurn(Board board) {
 		Random random = new Random();
-		System.out.println(name + "'s turn");
 		boolean dropped = false;
 
 		while (!dropped) {

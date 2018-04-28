@@ -11,7 +11,8 @@ import inputOutput.IO;
 import rules.Rules;
 
 public class Game {
-
+	
+	private final int WIN_CONDITION = 4;
 	private Board board;
 	private ArrayList<IPlayer> players = new ArrayList<IPlayer>();
 	private Token lastPlayedToken;
@@ -20,21 +21,22 @@ public class Game {
 
 	public Game(int mode) {
 		board = new Board(5, 5);
-		rules = new Rules();
+		rules = new Rules(this, WIN_CONDITION);
+		
 		switch (mode) {
 		case 0: { // Two human players
-			players.add(new Player(TokenColor.RED, "Red"));
-			players.add(new Player(TokenColor.YELLOW, "Yellow"));
+			players.add(new Player(TokenColor.RED));
+			players.add(new Player(TokenColor.YELLOW));
 			break;
 		}
 		case 1: { // One human, one AI
-			players.add(new Player(TokenColor.RED, "Red"));
-			players.add(new AIPlayer(TokenColor.YELLOW, "Yellow"));
+			players.add(new Player(TokenColor.RED));
+			players.add(new AIPlayer(TokenColor.YELLOW));
 			break;
 		}
 		case 2: { // Two AIs
-			players.add(new AIPlayer(TokenColor.RED, "Red"));
-			players.add(new AIPlayer(TokenColor.YELLOW, "Yellow"));
+			players.add(new AIPlayer(TokenColor.RED));
+			players.add(new AIPlayer(TokenColor.YELLOW));
 		}
 		}
 
@@ -51,15 +53,16 @@ public class Game {
 		while (!finished) {
 			boolean dropped = false;
 			for (int i = 0; i < players.size(); i++) {
+				IO.printBoard(board);
 				do {
-				IO.printNull(board);
+					IO.playersTurn(players.get(i));
 				try {
-					 dropped = players.get(i).doTurn(this, board);
+					 dropped = players.get(i).doTurn(board);
 				} catch (IllegalArgumentException | IndexOutOfBoundsException | InputMismatchException e) {
-					System.out.println("Not a legal move! Please enter a number between 1 - " + board.getWidth());
+					IO.illegalMove(board);
 				} 
 				} while (!dropped);
-				if (rules.winCondition(board)) {
+				if (rules.hasWon(board, this)) {
 					IO.winMessage(players.get(i), board);
 					finished = true;
 					break;
@@ -72,43 +75,7 @@ public class Game {
 	public boolean isFinished() {
 		return this.finished;
 	}
-
-	public void insertToken(int x, int y, TokenColor tokenColor) {
-		if (x < 0 || x > board.getWidth())
-			throw new IndexOutOfBoundsException();
-		if (y < 0 || y > board.getHeight())
-			throw new IndexOutOfBoundsException();
-
-		((Token) board.getCells().get(x + (y * board.getWidth()))).setColor((tokenColor));
-	}
-
-	//Drops token in a column.
-	public boolean dropToken(int column, TokenColor color) throws IllegalArgumentException {
-		if (column >= board.getWidth() + 1) {
-			throw new IllegalArgumentException("Not that many columns on the board!");
-
-		}
-		
-		//User is promted to type column number 1 - boardWidth, even though available 
-		//x positions is 0 - boardWidth-1. Therefore we substract 1 from the number given by the user. 
-		column--;
-
-		boolean dropped = false;
-
-		while (!false) {
-			for (int i = board.getHeight() - 1; i >= 0; i--) {
-				String tk = ((Token) board.getElement(column, i)).getSymbol();
-				if (tk.equals(" ")) {
-					insertToken(column, i, color); // Puts the token in the correct x,y position.
-					((Token) board.getElement(column, i)).setPos(column, i); // Updates the tokens position.
-					return true;
-				}
-			}
-			return false;
-		}
-
-	}
-
+	//For debugging
 	public Rules getRules() {
 		return rules;
 	}
