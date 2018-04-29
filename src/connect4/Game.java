@@ -11,18 +11,17 @@ import inputOutput.IO;
 import rules.Rules;
 
 public class Game {
-	
-	private final int WIN_CONDITION = 4;
+
+	private final int WIN_CONDITION = 4; //How many tokens of the same color is needed to win.
 	private Board board;
 	private ArrayList<IPlayer> players = new ArrayList<IPlayer>();
-	private Token lastPlayedToken;
 	private boolean finished = false;
 	private Rules rules;
 
 	public Game(int mode) {
-		board = new Board(5, 5);
+		board = new Board(5, );
 		rules = new Rules(this, WIN_CONDITION);
-		
+
 		switch (mode) {
 		case 0: { // Two human players
 			players.add(new Player(TokenColor.RED));
@@ -53,14 +52,14 @@ public class Game {
 		while (!finished) {
 			boolean dropped = false;
 			for (int i = 0; i < players.size(); i++) {
-				IO.printBoard(board);
+				IO.printBoard(board); // Prints the board on the screen.
 				do {
-					IO.playersTurn(players.get(i));
-				try {
-					 dropped = players.get(i).doTurn(board);
-				} catch (IllegalArgumentException | IndexOutOfBoundsException | InputMismatchException e) {
-					IO.illegalMove(board);
-				} 
+					IO.playersTurn(players.get(i)); // Announces a players turn
+					try {
+						dropped = players.get(i).doTurn(board);
+					} catch (IllegalArgumentException | IndexOutOfBoundsException | InputMismatchException e) {
+						IO.illegalMove(board);
+					}
 				} while (!dropped);
 				if (rules.hasWon(board, this)) {
 					IO.winMessage(players.get(i), board);
@@ -75,23 +74,26 @@ public class Game {
 	public boolean isFinished() {
 		return this.finished;
 	}
-	//For debugging
+
+	// For debugging
 	public Rules getRules() {
 		return rules;
 	}
-	
+
+	/*
+	 * Compare two tokens. Used by Rules<T> to check for neighbors of the same
+	 * color.
+	 */
 	public <T> boolean compareTokens(T token1, T token2) {
-		if (token1 == null || token2 == null) 
-			return false; 
-		if (!(token1 instanceof Token) || !(token2 instanceof Token))
+		if (token1 == null || token2 == null)
 			return false;
-		if (token1.equals(token2))
-			return true;
-		Token tk1 = ((Token) token1);
-		Token tk2 = ((Token) token2);
-		if (tk1.getColor().equals(tk2.getColor()))
-			return true;
 		
+		if (token1 instanceof Token && token2 instanceof Token) {
+			Token tk1 = ((Token) token1);
+			Token tk2 = ((Token) token2);
+			if (tk1.getColor().equals(tk2.getColor()))
+				return true;
+		}
 		return false;
 	}
 

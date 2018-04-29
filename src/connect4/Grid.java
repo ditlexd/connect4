@@ -9,7 +9,6 @@ public class Grid<T> {
 	private int width;
 	private int height;
 
-	// Creates a new grid with the given dimensions.
 	public Grid(int width, int height) {
 		super(); 
 		if (width <= 0 || height <= 0) {

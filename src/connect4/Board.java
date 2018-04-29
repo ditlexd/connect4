@@ -21,10 +21,6 @@ public class Board<T> extends Grid<T> {
 	
 	
 	public boolean dropToken(int column, T token) {
-		if (column >= super.getWidth() + 1) {
-			throw new IllegalArgumentException("Not that many columns on the board!");
-
-		}
 		
 		//User is promted to type column number 1 - boardWidth, even though available 
 		//x positions is 0 - boardWidth-1. Therefore we substract 1 from the number given by the user. 
@@ -38,7 +34,6 @@ public class Board<T> extends Grid<T> {
 					continue;
 				}
 					setElement(column, i, token); // Puts the token in the correct x,y position.
-				//	((Token) board.getElement(column, i)).setPos(column, i); // Updates the tokens position.
 					return true;
 			}
 			return false;
