@@ -49,7 +49,6 @@ public class BoardTest {
 	
 	@Test
 	public void printBoardTest() {
-		board.initializeBoard();
 		
 		board.setElement(4, 3, new Token(TokenColor.RED));
 		board.setElement(3, 2, new Token(TokenColor.RED));
@@ -63,8 +62,32 @@ public class BoardTest {
 		board.dropToken(1, new Token(TokenColor.YELLOW));
 		board.dropToken(5, new Token(TokenColor.YELLOW));
 		
-		IO.printBoard(board);
-		
+		IO.printBoard(board);	
 	}
+	
+	@Test
+	public void dropToken() {
+		board.dropToken(1, new Token(TokenColor.YELLOW));
+		board.dropToken(1, new Token(TokenColor.YELLOW));
+		board.dropToken(1, new Token(TokenColor.YELLOW));
+		board.dropToken(1, new Token(TokenColor.YELLOW));
+		
+		for (int i = 4; i < 0; i--) {
+			Token tk = ((Token) board.getElement(0, i));
+			assertEquals(tk.getColor(), TokenColor.YELLOW);
+		}
+		
+		board.dropToken(2, new Token(TokenColor.YELLOW));
+		board.dropToken(3, new Token(TokenColor.YELLOW));
+		board.dropToken(4, new Token(TokenColor.YELLOW));
+		board.dropToken(5, new Token(TokenColor.YELLOW));
+		
+		for (int i = 0; i < 4; i++) {
+			Token tk = ((Token) board.getElement(i, 4));
+			assertEquals(tk.getColor(), TokenColor.YELLOW);
+		}
+	}
+	
+	
 
 }

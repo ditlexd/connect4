@@ -46,6 +46,7 @@ public class RulesTest {
 		board.setElement(2, 2, new Token(TokenColor.RED));
 		board.setElement(3, 1, new Token(TokenColor.RED));
 
+	
 		assertEquals(rules.hasWon(board, game), true);	
 		board.clearBoard();
 		
