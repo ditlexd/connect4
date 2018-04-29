@@ -19,7 +19,7 @@ public class Game {
 	private Rules rules;
 
 	public Game(int mode) {
-		board = new Board(5, );
+		board = new Board(5, 5);
 		rules = new Rules(this, WIN_CONDITION);
 
 		switch (mode) {
