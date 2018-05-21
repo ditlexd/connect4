@@ -1,0 +1,34 @@
+Rettet av
+    Eivind Dagsland Halderaker,
+    eivind.halderaker@student.uib.no
+
+Generelt: 
+Kunne gjort det litt bedre ved at spilleren velger game mode i stedet for å måtte endre i koden!  
+
+Funksjonalitet: 
+
+Testing:
+Kunne du ikke brukt checkHorizontal() fra Rules i stedet for å skrive den på ny i testen? :)
+Ellers bra med tester!
+
+Dok/Readme: 
+Greit med dokumentasjon, sko bare hatt javaDoc:
+javaDoc
+Gjerne bruk "/** ... */" i stedet for "// ..." for javadoc, slik at det blir riktig dersom man faktisk skal generere dokumentasjonsnettside
+
+
+Design: 
+Bra du har liste av IPlayer i Game!
+Bra du har skilt grafikk fra logikk!
+
+Noen ekstra tips til koden din:
+
+
+17/20 Funksjonalitet
+15/20 Testing
+8/10 Dok/Readme
+55/50 Design
+
+Poeng: 95/100
+
+Gjerne send meg en epost dersom du har spørsmål eller det er noe du er uenig i.
